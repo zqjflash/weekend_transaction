@@ -14,17 +14,19 @@
 
 * baas为sdk入口类，需要先通过`new baas`来进行实例化
 * 参数：
-参数 | 类型 | 必填 | 说明
-config | Object | N | 全局配置，定义见下方
+| 参数 | 类型 | 必填 | 说明 |
+| ----- | ----- | ----- | ----- |
+| config | Object | N | 全局配置，定义见下方 |
 
 config配置：
 
-字段 | 类型 | 必填 | 默认值 | 说明
-appId | String | Y | '' | 应用的唯一ID
-appKey | String | Y | '' | 应用的授权Key
-env | String | N | prod | 指定调用服务的环境，可选值有：prod、pre1-8、daily
-endpoint | String | N | https://xxx.xxx.com | 指定提供服务的host
-domain | String | N | '' | 指定调用服务的租户标识，当endpoint指定为api server时，必传，否则在调用cf组件时，会找不到应用
+| 字段 | 类型 | 必填 | 默认值 | 说明 |
+| ----- | ----- | ----- | ----- | ----- |
+| appId | String | Y | '' | 应用的唯一ID |
+| appKey | String | Y | '' | 应用的授权Key |
+| env | String | N | prod | 指定调用服务的环境，可选值有：prod、pre1-8、daily |
+| endpoint | String | N | https://xxx.xxx.com | 指定提供服务的host |
+| domain | String | N | '' | 指定调用服务的租户标识，当endpoint指定为api server时，必传，否则在调用cf组件时，会找不到应用 |
 
 * 示例：
 
