@@ -77,3 +77,29 @@ const params = [ ... ];
 const res = await rpc.invoke('interfaceName', 'methodName', params);
 
 ```
+
+* 框架代码的基本实现
+
+```js
+const DEFAULT_APP_NAME = '[baas_app]';
+class BaaSSDK {
+    constructor(opts) {
+        assert(opts.appId, 'options.appId required');
+        assert(opts.appKey, 'options.appKey required');
+    }
+
+    // 代码省略
+    // ...
+
+    this._apps = { // 缓存所有init过的App实例，以appName为Key
+        [DEFAULT_APP_NAME]: new App({ ... opt }), // 初始化BaaS时，默认先创建一个实例
+    }
+
+    get app() {
+        return this._apps[DEFAULT_APP_NAME];
+    }
+}
+```
+
+
+
