@@ -101,5 +101,80 @@ class BaaSSDK {
 }
 ```
 
+### 2.3 创建多个App实例
 
+* baas.initApp
+可以通过调用sdk实例的initApp方法，生成多个独立的App实例。（比如，生成另一个App实例来调用其他应用的云函数）
 
+| 参数 | 类型 | 必填 | 说明 |
+| ----- | ----- | ----- | ----- |
+| name | String | N | 实例名称，若不传则会自动生成一个名称，可以通过baas.getApp方法取到指定name的App实例 |
+| config | Object | N | 全局配置，默认会extends baas实例的config |
+
+* 返回值
+  * Object: baas.App实例
+
+* 示例
+
+```js
+// 初始化App实例
+const otherBaasApp = baas.initApp('otherApp', otherConfig);
+
+// 通过App实例可以取到默认的服务组件实例，也可以调用createService来进行实例化
+// 可以传入不同的配置来生成多个实例，同样的配置只会生成一个实例
+// 实例化服务组件时，使用的配置为：App配置+初始化传入的配置
+const { oss } = otherBaasApp;
+const customOss = otherBaasApp.createService('oss', serviceCfg);
+
+```
+
+* 框架代码实现
+
+```js
+// oss.js
+class OSSService extends Service {
+    async uploadFile(file, option = {}) {
+        // ...
+        return new Promise(() => {
+            this._request({
+                // ...
+            });
+        })
+        // ...
+    }
+}
+
+// app.js
+const OSSService = require('./oss.js');
+class App {
+  constructor(opts) {
+    this.opts = opts;
+    this._services = {};
+  }
+  createService(type, name, opts = {}) {
+    const supportedServices = {
+      // ...
+      oss: OSSService,
+      // ...
+    };
+    const TargetService = supportedServices[type];
+    // ...
+    const service = new TargetService(serviceOpts);
+    // ...
+    return service;
+  }
+}
+
+// baas.js
+class BaaSSDK {
+  // ...
+  initApp(name, opts = {}) {
+      // ...
+      const app = new App({ ...this.opts, ...opts });
+      this._apps[name] = app;
+      return app;
+      // ...
+  }
+  // ...
+}
+```
