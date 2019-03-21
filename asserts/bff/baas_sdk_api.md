@@ -82,7 +82,7 @@ const res = await rpc.invoke('interfaceName', 'methodName', params);
 
 ```js
 const DEFAULT_APP_NAME = '[baas_app]';
-class BaaSSDK {
+class BaaS {
     constructor(opts) {
         assert(opts.appId, 'options.appId required');
         assert(opts.appKey, 'options.appKey required');
@@ -176,5 +176,50 @@ class BaaSSDK {
       // ...
   }
   // ...
+}
+```
+
+### 2.4 获取已经init过的App实例
+
+* baas.getApp
+* 参数
+
+| 参数 | 类型 | 必填 | 说明 |
+| ----- | ----- | ----- | ----- |
+| name | String | N | 若不指定或为空，则返回默认实例(name = '[BAAS_APP]')
+
+* 返回值
+  * Object: baas.App实例
+
+* 示例
+
+```js
+// 通常，在应用启动阶段初始化App实例
+baas.initApp(config);
+baas.initApp('otherApp', config);
+
+// 在运行阶段的某个地方，获取已经初始化的App实例
+const defaultApp = baas.getApp();
+const otherApp = baas.getApp('otherApp');
+```
+
+* 框架代码实现
+
+```js
+// baas.js
+const DEFAULT_APP_NAME = '[BAAS_APP]';
+class BaaS {
+    // ...
+    getApp(name) {
+        name = this._ensureAppName(name);
+        return this._apps[name];
+    }
+    // ...
+    _ensureAppName(name) {
+        if (name === undefined) {
+            name = DEFAULT_APP_NAME;
+        }
+        return name;
+    }
 }
 ```
