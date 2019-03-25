@@ -21,7 +21,7 @@ BaaS-Backend as s Service，将云端的能力进行服务化的封装，屏蔽�
 
 ### 二、BaaS SDK API
 
-#### 2.1 概要
+### 概要
 
 * SDK提供以下服务组件
   * rpc
@@ -31,7 +31,7 @@ BaaS-Backend as s Service，将云端的能力进行服务化的封装，屏蔽�
   * tair
   * messaging
 
-### 2.2 SDK初始化
+### 2.1 SDK初始化
 
 * baas为sdk入口类，需要先通过`new baas`来进行实例化
 * 参数：
@@ -101,7 +101,7 @@ class BaaS {
 }
 ```
 
-### 2.3 创建多个App实例
+#### 2.1.1 创建多个App实例
 
 * baas.initApp
 可以通过调用sdk实例的initApp方法，生成多个独立的App实例。（比如，生成另一个App实例来调用其他应用的云函数）
@@ -179,7 +179,7 @@ class BaaSSDK {
 }
 ```
 
-### 2.4 获取已经init过的App实例
+### 2.1.2 获取已经init过的App实例
 
 * baas.getApp
 * 参数
@@ -220,6 +220,64 @@ class BaaS {
             name = DEFAULT_APP_NAME;
         }
         return name;
+    }
+}
+```
+
+### 2.2 App
+
+#### 2.2.1 创建Service实例
+
+> App默认会挂载一份所有服务组件的实例，一般不需要手动创建
+
+* app.createService(name, config)
+* 示例
+
+```js
+const anotherTair = app.createService('anotherTairService', config);
+const res = await anotherTair.get(key);
+```
+
+* 框架代码实现
+
+```js
+// service.js
+class Service {
+    // ...
+    async _request(params) {
+        // ...
+        const res = await axios.request({
+            // ...
+        });
+        // ...
+        return res.data;
+    }
+    // ...
+}
+
+// tair.js
+const Service = require('./service');
+class TairService extends Service {
+    async get(key, options = {}) {
+        return await this._request({
+            url: 'tair/invoke',
+        });
+    }
+}
+
+// app.js
+const TairService = require('./tair.js');
+class App {
+    createService(type, name, opts = {}) {
+        name = this._ensureServiceName(name);
+        // ...
+        const supportedServices = {
+            tair: TairService,
+        };
+        const TargetService = supportedServices[type];
+        // ...
+        const service = new TargetService(serviceOpts);
+        return service;
     }
 }
 ```
