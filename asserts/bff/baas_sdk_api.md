@@ -234,7 +234,7 @@ class BaaS {
 * 示例
 
 ```js
-const anotherTair = app.createService('anotherTairService', config);
+const anotherTair = app.createService('tair', 'anotherTairService', config);
 const res = await anotherTair.get(key);
 ```
 
