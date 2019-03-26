@@ -1,0 +1,19 @@
+{
+    "name": "work-platform",
+    "version": "1.0.0",
+    "description": "",
+    "scripts": {
+
+    },
+    "repository": {
+        "type": "git"
+    },
+    "author": "",
+    "publishConfig": {
+        
+    },
+    "dependencies": {
+        "base64url": "^3.0.0",
+        "lodash": "^4.17.11"
+    }
+}

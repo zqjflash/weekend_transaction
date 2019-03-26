@@ -1,0 +1,42 @@
+# For vscode
+.vscode/
+
+# For macOS
+.DS_Store
+
+# For Windows
+thumbs.db
+
+# For RDB
+dump.rdb
+
+
+# For NPM
+node_modules/
+npm-debug.log
+npm-debug.log.*
+
+# For git
+!.gitkeep
+
+# For Begg
+coverage/
+logs/
+.logs/
+*-run/
+app/proxy*
+mocks_data/proxy/**/__*
+.idea/
+assembly/
+target/
+app/public/build/
+run/
+coverage/
+cov/
+logs/
+node_modules/
+
+# Others
+assembly/
+mocks_data/proxy/**/__*
+.nyc_output
