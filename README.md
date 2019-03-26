@@ -8,6 +8,7 @@
 ### 2019-03-W3
 
 * [2019-03-W3 基于NodeJS的serverless架构实践](/2019-03-W3.md)
+* [2019-03-W3 serverless平台架构](/asserts/bff/serverless-platform.md)
 
 ### 2019-03-W4
 
