@@ -10,7 +10,7 @@
 
 ![应用分层结构](/asserts/bff-application.png)
 
-* 图中承载API Gateway的应用为work-platform，线上共部署了2台机器，预发部署了1台；
+* 图中承载API Gateway的应用为[work-platform](/asserts/bff/work-platform/readme.md)，线上共部署了2台机器，预发部署了1台；
 * 承载API Service的应用为api-service-center，线上共部署了4台机器，预发部署了4台；
 * [BaaS SDK](/asserts/bff/baas_sdk_api.md)
 
