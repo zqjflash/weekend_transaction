@@ -10,6 +10,7 @@ exports.domainConfig = {
   data: {
       public: {
         // ...
+        viewDir: 'public'
       }
   }
 };
