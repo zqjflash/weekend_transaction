@@ -3,6 +3,7 @@ const querystring = require('querystring');
 
 module.exports = app => {
     class HomeController extends app.Controller {
+        // ...
         async forward() {
             const result = await ctx.curl(targetUrl, {
                 method,
@@ -22,6 +23,7 @@ module.exports = app => {
             const { status, data } = result;
             ctx.response.status = status;
             ctx.response.body = data;
+            ctx.helper.handleApiResHeader(result);
         }
     }
     return HomeController;
