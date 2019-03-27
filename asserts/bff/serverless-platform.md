@@ -20,4 +20,4 @@
 
 ### 四、沙箱部分
 
-[沙箱部分](/asserts/node-sandbox.md)
+[沙箱部分](/asserts/bff/node-sandbox.md)
